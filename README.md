@@ -18,15 +18,13 @@
    ```bash
    pip install -r requirements.txt
 3. Запустите тесты с формированием Allure-отчёта:
- - стандартный запуск тестов в pytest
-         
-   ```bash   
-   pytest -v --alluredir=allure-results
+   - стандартный запуск тестов в pytest
+      ```bash   
+      pytest -v --alluredir=allure-results
    
- - параллельный запуск тестов в pytest с использованием pytest-xdist
-   ```bash
-   pytest -v -n auto --alluredir=allure-results
-   
+   - параллельный запуск тестов в pytest с использованием pytest-xdist
+      ```bash
+      pytest -v -n auto --alluredir=allure-results
 4. Сгенерируйте и откройте отчет:
    ```bash
    allure serve allure-results
