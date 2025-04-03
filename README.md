@@ -25,12 +25,13 @@
    - параллельный запуск тестов в pytest с использованием pytest-xdist
       ```bash
       pytest -v -n auto --alluredir=allure-results
-4. Сгенерируйте и откройте отчет:
+4. Сгенерируйте и откройте отчет локально:
    ```bash
    allure serve allure-results
----
 
+## Отчёты Allure
 
+Отчёты о результатах автоматических тестов также доступны онлайн по ссылке: https://bl4ckr4s.github.io/test_task_ui
 
    
 
