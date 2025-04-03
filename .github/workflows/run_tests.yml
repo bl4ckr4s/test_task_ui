@@ -7,6 +7,11 @@ on:
       - dev
   pull_request:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -34,5 +39,33 @@ jobs:
         run: |
           pytest -n auto -v --alluredir=allure-results
 
+      - name: Get Allure history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Setup Pages
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'allure-history'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+        uses: actions/deploy-pages@v4
